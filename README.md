@@ -1,6 +1,6 @@
-# Groupie Tracker
+# Groupie Tracker filters
 
-Groupie Tracker is a Go-based web application that interacts with a RESTful API to fetch and display data about musical artists, their concert locations, dates, and relationships. This project aims to provide an intuitive and structured way to visualize this information.
+Groupie Tracker filter is a Go-based web application that interacts with a RESTful API to fetch and display data about musical artists, their concert locations, dates, and relationships. This project aims to provide an intuitive and structured way to visualize this information.
 
 ## 📌 Project Overview
 
