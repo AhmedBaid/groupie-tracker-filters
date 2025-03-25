@@ -6,13 +6,13 @@ import (
 )
 
 // our data structure
-type FilterArtists struct{
-	Allartists []Artists
-	MinCreationDate int
-	MaxCreationDate int
-	Locations []string
-}
 type (
+	FilterArtists struct {
+		Allartists      []Artists
+		MinCreationDate int
+		MaxCreationDate int
+		Locations       []string
+	}
 	ErrorPage struct {
 		Code         int
 		ErrorMessage string

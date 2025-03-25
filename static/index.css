@@ -35,8 +35,7 @@
 
 .show {
   position: relative;
-  text-align: center;
-  display: none;
+  /* display: none; */
   padding: 20px;
   margin: auto;
   color: white;
@@ -90,8 +89,11 @@ input[type="number"] {
 .show .member {
   width: 40%;
 }
-
-.filter-link {
+.filter-link a {
+  margin: auto;
+  width: 17%;
+  display: flex;
+  justify-content: center;
   color: black;
   background-color: #00ff26;
   border-radius: 12px;
@@ -108,7 +110,7 @@ input[type="number"] {
 
 .checkboxes {
   display: flex;
-  gap: 30px;
+  gap: 25px;
 }
 
 .checkboxes .dv {
