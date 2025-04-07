@@ -14,36 +14,43 @@
   margin: 90px auto 0px auto;
 }
 
-
-.filter h1 {
-  color: blue;
-  font-size: 18px;
-  cursor: pointer;
-  letter-spacing: 1.2px;
-}
-
-.filter h2 {
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  letter-spacing: 1.2px;
-}
-
-.filter .h1-hide {
+.filter .xmark-button{
   display: none;
 }
 
 .show {
   position: relative;
-  /* display: none; */
+  display: none;
   padding: 20px;
   margin: auto;
   color: white;
   animation: show 1s ease-in-out;
   background-color: #141414;
   border-radius: 24px;
-  width: 78%;
+  width: 72%;
 }
+.filter-button ,.xmark-button  {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: #1c1f2e;
+  border-radius: 8px;
+  border: rgba(255, 255, 255, 0.123) solid 1px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100px;
+}
+
+.filter-button:hover ,.xmark-button:hover{
+  background-color: #2a2e42;
+}
+
+.material-icons {
+  font-size: 10px;
+}
+
 
 .show input,
 .show label {
@@ -52,11 +59,11 @@
 }
 
 .filter:has(#filter:checked)+.show,
-.filter:has(#filter:checked) .h1-hide {
+.filter:has(#filter:checked) .xmark-button {
   display: block;
 }
 
-.filter:has(#filter:checked) .h1-show {
+.filter:has(#filter:checked) .filter-button {
   display: none;
 }
 
@@ -89,7 +96,7 @@ input[type="number"] {
 .show .member {
   width: 40%;
 }
-.filter-link a {
+.filter-link input {
   margin: auto;
   width: 17%;
   display: flex;

@@ -7,6 +7,7 @@
   <title>Groupit-tracker</title>
   <link rel="stylesheet" href="/static/index.css" />
   <link rel="shortcut icon" href="/static/images/artist.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -38,13 +39,14 @@
   </nav>
   <div class="filter" id="up">
     <input class="hidd" type="checkbox" id="filter">
-    <label for="filter">
-      <h1 class="h1-show">Filter</h1>
-      <h2 class="h1-hide">Annuler</h2>
+    <label for="#filter">
+      <button class="filter-button"><span class="material-icons">filter_alt</span>Filter</button>
+      <button class="xmark-button"><span class="material-icons">close</span>Close</button>
     </label>
   </div>
 
   <div class="show">
+    <form action="/Filter" method="get">
     <div class="content">
       <div class="date">
         <label>Creation Date:</label>
@@ -111,7 +113,7 @@
       </div>
     </div>
     <div class="filter-link"> 
-      <a href="/">filter</a>
+      <input type="submit" value="Filter">
     </div>
   </div>
   </div>
@@ -145,7 +147,6 @@
   creationMax.addEventListener("input", function () {
     updateRangeValue("creation-max-value", creationMax.value);
   });
-
 </script>
 
 </html>
