@@ -37,30 +37,41 @@
       </div>
     </div>
   </nav>
-  <div class="filter" id="up">
-    <input class="hidd" type="checkbox" id="filter">
-    <label for="#filter">
-      <button class="filter-button"><span class="material-icons">filter_alt</span>Filter</button>
-      <button class="xmark-button"><span class="material-icons">close</span>Close</button>
+  <div class="filter">
+    <input class="hidd" type="checkbox" id="filter"> 
+    <label for="filter">
+      <h6 class="filter-button">
+        <span class="material-icons">filter_alt</span>
+        Filter
+      </h6>
+      <h6 class="xmark-button">
+        <span class="material-icons">close</span>
+        Close
+      </h6>
     </label>
   </div>
+  
 
   <div class="show">
     <form action="/Filter" method="get">
     <div class="content">
       <div class="date">
-        <label>Creation Date:</label>
-        <div class="smon">
-          <label for="date">from : <span id="creation-min-value">1958</span></label>
-          <input type="range" id="creation-min" placeholder="Min Year" min="1958" max="2015">
+        <div class="centent1">
+          <label>Creation Date:</label>
+          <div class="smon">
+            <label for="date">from : <span id="creation-min-value">1958</span></label>
+            <input type="range" id="creation-min" placeholder="Min Year" min="1958" max="2015">
+          </div>
+          <div class="smon">
+            <label for="date">to : <span id="creation-max-value">2015</span></label>
+            <input type="range" id="creation-max" placeholder="Max Year" min="1958" max="2015">
+          </div>
         </div>
-        <div class="smon">
-          <label for="date">to : <span id="creation-max-value">2015</span></label>
-          <input type="range" id="creation-max" placeholder="Max Year" min="1958" max="2015">
+        <div class="button">
+          <label>First Album Date:</label><br>
+          <input type="number" id="album-min" placeholder="Min Year" min="1958" max="2015">
+          <input type="number" id="album-max" placeholder="Max Year" min="1958" max="2015">
         </div>
-        <label>First Album Date:</label>
-        <input type="number" id="album-min" placeholder="Min Year" min="1958" max="2015">
-        <input type="number" id="album-max" placeholder="Max Year" min="1958" max="2015">
       </div>
 
       <div class="member">
@@ -101,11 +112,11 @@
           </div>
         </div>
         <div class="loc">
-          <label for="locations"> Locations:</label>
+          <label for="locations"> Locations:</label><br>
           <input type="text" list="locations">
           <datalist id="locations">
-            {{ range .}}
-            <option> {{.Locations}}</option>
+            {{range .}}
+            <option>{{.Locations}}</option>
             {{end}}
           </datalist>
         </div>

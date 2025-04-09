@@ -6,18 +6,27 @@
   box-sizing: border-box;
 }
 
-.filter {
-  width: 78%;
-  display: flex;
-  justify-content: end;
-  height: 30px;
-  margin: 90px auto 0px auto;
-}
-
-.filter .xmark-button{
+body::-webkit-scrollbar {
   display: none;
 }
 
+.filter {
+  width: 72%;
+  display: flex;
+  justify-content: end;
+  height: 30px;
+  margin: 90px auto 20px auto;
+}
+
+.filter .xmark-button {
+  display: none;
+}
+input[type="number"] {
+  height: 30px;
+}
+datalist {
+  height: 30px;
+}
 .show {
   position: relative;
   display: none;
@@ -28,12 +37,15 @@
   background-color: #141414;
   border-radius: 24px;
   width: 72%;
+  height: 280px;
 }
-.filter-button ,.xmark-button  {
+
+.filter-button,
+.xmark-button {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
+  padding: 8px 12px;
   background-color: #1c1f2e;
   border-radius: 8px;
   border: rgba(255, 255, 255, 0.123) solid 1px;
@@ -43,24 +55,16 @@
   width: 100px;
 }
 
-.filter-button:hover ,.xmark-button:hover{
+.filter-button:hover,
+.xmark-button:hover {
   background-color: #2a2e42;
 }
-
-.material-icons {
-  font-size: 10px;
-}
-
-
-.show input,
-.show label {
+.filter:has(#filter:checked) + .show {
   display: block;
-  margin: 5px 0;
 }
 
-.filter:has(#filter:checked)+.show,
 .filter:has(#filter:checked) .xmark-button {
-  display: block;
+  display: flex;
 }
 
 .filter:has(#filter:checked) .filter-button {
@@ -80,12 +84,18 @@
 .show .date {
   width: 40%;
 }
+.show .member {
+  width: 40%;
+}
+.button {
+  margin-top: 60px;
+}
 
 input[type="checkbox"] {
   accent-color: #00ff26;
   zoom: 1.3;
 }
-.loc{
+.loc {
   margin-top: 40px;
 }
 input[type="number"] {
@@ -97,14 +107,16 @@ input[type="number"] {
   width: 40%;
 }
 .filter-link input {
-  margin: auto;
-  width: 17%;
+  margin: 50px auto 0 auto;
   display: flex;
+  border: none;
+  outline: none;
+  cursor: pointer;
   justify-content: center;
   color: black;
   background-color: #00ff26;
-  border-radius: 12px;
-  padding: 3px 40px;
+  border-radius: 10px;
+  padding: 3px 20px;
   font-size: 24px;
   text-decoration: none;
   font-weight: bold;
@@ -118,15 +130,12 @@ input[type="number"] {
 .checkboxes {
   display: flex;
   gap: 25px;
+  margin-bottom: 80px;
 }
 
 .checkboxes .dv {
   display: flex;
   gap: 5px;
-}
-
-body::-webkit-scrollbar {
-  display: none;
 }
 
 html {
@@ -200,11 +209,7 @@ body:has(#darkmode-toggle:checked) .users a::after {
   visibility: hidden;
 }
 
-.hidd:checked+label {
-  background-color: #ebebeb;
-}
-
-.hidd:checked+label::after {
+.hidd:checked + label::after {
   left: 43px;
   transform: translateX(-100%);
   background: linear-gradient(180deg, #ffcc89, #d8860b);
@@ -237,11 +242,11 @@ label svg.moon {
   transition: 0.8s;
 }
 
-.hidd:checked+label svg.sun {
+.hidd:checked + label svg.sun {
   fill: white;
 }
 
-.hidd:checked+label svg.moon {
+.hidd:checked + label svg.moon {
   fill: #7e7e7e;
 }
 
@@ -382,12 +387,12 @@ nav {
 @keyframes show {
   from {
     opacity: 0;
-    scale: 0;
+    transform: translateY(-500px);
   }
 
   to {
     opacity: 1;
-    scale: 1;
+    transform: translateY(0);
   }
 }
 
