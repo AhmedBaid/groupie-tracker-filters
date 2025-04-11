@@ -2,73 +2,76 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 
 	"groupie/helpers"
-	"groupie/tools"
+	tools "groupie/tools"
 )
 
-func FilterHandler(w http.ResponseWriter, r *http.Request) {
+func Groupie_Func(w http.ResponseWriter, r *http.Request) {
+	// check the path
+	if r.URL.Path != "/" {
+		// execute the not found  template
+		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorNotFound, http.StatusNotFound)
+		return
+	}
+	// check the methd
 	if r.Method != http.MethodGet {
+		// execute the not found  template
 		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorMethodnotAll, http.StatusMethodNotAllowed)
 		return
 	}
 
-	// Load all artists from API
+	var allArtists *[]tools.Artists
+	var locationsList []string
 	url := "https://groupietrackers.herokuapp.com/api/artists"
+	// get the api data
 	res, err := http.Get(url)
 	if err != nil {
+		fmt.Println("2")
 		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorInternalServerErr, http.StatusInternalServerError)
 		return
 	}
 	defer res.Body.Close()
-
-	var artists []tools.Artists
-	err = json.NewDecoder(res.Body).Decode(&artists)
+	// decode the jsone data
+	err = json.NewDecoder(res.Body).Decode(&allArtists)
 	if err != nil {
+		fmt.Println("1")
 		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorInternalServerErr, http.StatusInternalServerError)
 		return
 	}
+	// Collect unique locations mn kol artist
+	locationsSet := make(map[string]bool)
 
-	// Get form values
-	creationMin := helpers.ParseIntOrDefault(r.FormValue("creation-min"), 1958)
-	creationMax := helpers.ParseIntOrDefault(r.FormValue("creation-max"), 2015)
-	albumMin := helpers.ParseIntOrDefault(r.FormValue("album-min"), 1958)
-	albumMax := helpers.ParseIntOrDefault(r.FormValue("album-max"), 2015)
-	location := r.FormValue("locations")
+	for _, artist := range *allArtists {
+		var locData *tools.LocationDataFilter
+		err := helpers.Fetch_By_Id(artist.Locations, &locData)
+		if err != nil {
+			continue
+		}
 
-	// Checkbox members: manually extract multiple values
-	r.ParseForm() // 👈 this is important for FormValue to get multiple checkboxes
-	memberValues := r.Form["members"]
-
-	memberMap := make(map[int]bool)
-	for _, m := range memberValues {
-		val := helpers.ParseIntOrDefault(m, -1)
-		if val > 0 {
-			memberMap[val] = true
+		for _, loc := range locData.Locations {
+			cleaned := strings.TrimSpace(loc)
+			if cleaned != "" {
+				locationsSet[cleaned] = true
+			}
 		}
 	}
 
-	// Filter logic
-	var filtered []tools.Artists
-	for _, artist := range artists {
-		if artist.CreationDate < creationMin || artist.CreationDate > creationMax {
-			continue
-		}
-		albumYear := helpers.ParseYear(artist.FirstAlbum)
-		if albumYear < albumMin || albumYear > albumMax {
-			continue
-		}
-		if len(memberMap) > 0 && !memberMap[len(artist.Members)] {
-			continue
-		}
-		if location != "" && !helpers.ContainsLocation(artist.Locations, location) {
-			continue
-		}
-		
-		filtered = append(filtered, artist)
+	// Convert set to slice
+	for loc := range locationsSet {
+		locationsList = append(locationsList, loc)
+	}
+	// Prepare data
+	finalData := struct {
+		Artists   []tools.Artists
+		Locations []string
+	}{
+		Artists:   *allArtists,
+		Locations: locationsList,
 	}
 
-	// Render filtered result
-	helpers.RenderTemplates(w, "index.html", filtered, http.StatusOK)
+	helpers.RenderTemplates(w, "index.html", finalData, http.StatusOK)
 }

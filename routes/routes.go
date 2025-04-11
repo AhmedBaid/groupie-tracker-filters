@@ -19,7 +19,7 @@ func Route() {
 		return
 	}
 	// our handlers
-	http.HandleFunc("/", handler.FilterHandler)
+	http.HandleFunc("/", handler.Groupie_Func)
 	http.HandleFunc("/static/", handler.Style_Func)
 	http.HandleFunc("/details/", handler.Detail_Card_Func)
 	http.HandleFunc("/filter", handler.Filter_Func)

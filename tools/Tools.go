@@ -41,7 +41,11 @@ type (
 		Id             int                 `json:"id"`
 		DatesLocations map[string][]string `json:"datesLocations"`
 	}
+	LocationDataFilter struct {
+	   Locations []string `json:"locations"`
+	}
 )
+
 
 // NewErrorPage creates a new ErrorPage
 var (

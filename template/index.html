@@ -113,14 +113,13 @@
         </div>
         <div class="loc">
           <label for="locations"> Locations:</label><br>
-          <input type="text" list="locations">
+          <input type="text" name="location" list="locations">
           <datalist id="locations">
-            {{range .}}
-            <option>{{.Locations}}</option>
+            {{range .Locations}}
+            <option>{{.}}</option>
             {{end}}
           </datalist>
         </div>
-
       </div>
     </div>
     <div class="filter-link"> 
@@ -129,7 +128,7 @@
   </div>
   </div>
   <div class="cards-groups" id="up">
-    {{range .}}
+    {{range .Artists}}
     <a class="lien" href="/details?id={{.Id}}">
       <div class="card">
         <img src="{{.Image}}" alt="lien" loading="lazy" />
