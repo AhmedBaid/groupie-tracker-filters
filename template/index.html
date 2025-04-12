@@ -59,18 +59,18 @@
         <div class="centent1">
           <label>Creation Date:</label>
           <div class="smon">
-            <label for="date">from : <span id="creation-min-value">1958</span></label>
-            <input type="range" id="creation-min" placeholder="Min Year" min="1958" max="2015">
+            <label for="date">from : <span id="creation-min-value">{{.MinCrDate}}</span></label>
+            <input type="range" id="creation-min" placeholder="Min Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
           </div>
           <div class="smon">
-            <label for="date">to : <span id="creation-max-value">2015</span></label>
-            <input type="range" id="creation-max" placeholder="Max Year" min="1958" max="2015">
+            <label for="date">to : <span id="creation-max-value">{{.MaxCrDate}}</span></label>
+            <input type="range" id="creation-max" placeholder="Max Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
           </div>
         </div>
         <div class="button">
           <label>First Album Date:</label><br>
-          <input type="number" id="album-min" placeholder="Min Year" min="1958" max="2015">
-          <input type="number" id="album-max" placeholder="Max Year" min="1958" max="2015">
+          <input type="number" id="album-min" placeholder="Min Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
+          <input type="number" id="album-max" placeholder="Max Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
         </div>
       </div>
 

@@ -7,11 +7,11 @@ import (
 
 // our data structure
 type (
-	FilterArtists struct {
-		Allartists      []Artists
-		MinCreationDate int
-		MaxCreationDate int
-		Locations       []string
+	Data struct {
+		Artists   *[]Artists
+		Locations []string
+		MinCrDate int
+		MaxCrDate int
 	}
 	ErrorPage struct {
 		Code         int
@@ -42,10 +42,9 @@ type (
 		DatesLocations map[string][]string `json:"datesLocations"`
 	}
 	LocationDataFilter struct {
-	   Locations []string `json:"locations"`
+		Locations []string `json:"locations"`
 	}
 )
-
 
 // NewErrorPage creates a new ErrorPage
 var (
