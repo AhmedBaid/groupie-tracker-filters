@@ -127,6 +127,7 @@
     </div>
   </div>
   </div>
+  {{if .Artists}}
   <div class="cards-groups" id="up">
     {{range .Artists}}
     <a class="lien" href="/details?id={{.Id}}">
@@ -135,6 +136,9 @@
         <h2>{{.Name}}</h2>
       </div>
     </a>
+    {{end}}
+    {{else}}
+    <h1 class="err-msg">Sorry, we couldn't find any artist</h1>
     {{end}}
   </div>
   <a href="#up" class="up">
