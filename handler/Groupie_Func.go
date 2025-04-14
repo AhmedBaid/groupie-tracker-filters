@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"encoding/json"
+	"net/http"
+
 	"groupie/helpers"
 	tools "groupie/tools"
-	"net/http"
 )
 
 func Groupie_Func(w http.ResponseWriter, r *http.Request) {
@@ -25,15 +25,7 @@ func Groupie_Func(w http.ResponseWriter, r *http.Request) {
 	// initialise the variables
 	var allArtists *[]tools.Artists
 	url := "https://groupietrackers.herokuapp.com/api/artists"
-	// get the api data
-	res, err := http.Get(url)
-	if err != nil {
-		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorInternalServerErr, http.StatusInternalServerError)
-		return
-	}
-	defer res.Body.Close()
-	// decode the jsone data
-	err = json.NewDecoder(res.Body).Decode(&allArtists)
+	err := helpers.Fetch_By_Id(url, &allArtists)
 	if err != nil {
 		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorInternalServerErr, http.StatusInternalServerError)
 		return

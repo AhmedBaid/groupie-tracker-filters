@@ -60,17 +60,17 @@
           <label>Creation Date:</label>
           <div class="smon">
             <label for="date">from : <span id="creation-min-value">{{.MinCrDate}}</span></label>
-            <input type="range" id="creation-min" placeholder="Min Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
+            <input type="range" id="creation-min" name="Crmin"  placeholder="Min Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
           </div>
           <div class="smon">
             <label for="date">to : <span id="creation-max-value">{{.MaxCrDate}}</span></label>
-            <input type="range" id="creation-max" placeholder="Max Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
+            <input type="range" id="creation-max" name="Crmax"  placeholder="Max Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
           </div>
         </div>
         <div class="button">
           <label>First Album Date:</label><br>
-          <input type="number" id="album-min" placeholder="Min Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
-          <input type="number" id="album-max" placeholder="Max Year" min="{{.MinCrDate}}" max="{{.MaxCrDate}}">
+          <input type="number" name="album-min" placeholder="Min Year" min="{{.MinCrDate}}" max="2025">
+          <input type="number" name="album-max" placeholder="Max Year" min="{{.MinCrDate}}" max="2025">
         </div>
       </div>
 
@@ -78,36 +78,36 @@
         <label>Number of Members:</label>
         <div class="checkboxes">
           <div class="dv">
-            <input type="checkbox" id="members" value="4">
+            <input type="checkbox" id="members" value="1">
             <label for="">1</label>
           </div>
           <div class="dv">
-            <input type="checkbox" id="members" value="4">
+            <input type="checkbox" name="members" value="2">
             <label for="">2</label>
           </div>
           <div class="dv">
-            <input type="checkbox" id="members" value="3">
+            <input type="checkbox" name="members" value="3">
             <label for="">3</label>
           </div>
           <div class="dv">
-            <input type="checkbox" id="members" value="4">
+            <input type="checkbox" name="members" value="4">
             <label for="">4</label>
           </div>
           <div class="dv">
-            <input type="checkbox" id="members" value="5">
+            <input type="checkbox" name="members" value="5">
             <label for="">5</label>
           </div>
           <div class="dv">
-            <input type="checkbox" id="members" value="6">
+            <input type="checkbox" name="members" value="6">
             <label for="">6</label>
           </div>
           <div class="dv">
-            <input type="checkbox" id="members" value="7">
+            <input type="checkbox" name="members" value="7">
             <label for="">7</label>
 
           </div>
           <div class="dv">
-            <input type="checkbox" id="members" value="8">
+            <input type="checkbox" name="members" value="8">
             <label for="">8</label>
           </div>
         </div>

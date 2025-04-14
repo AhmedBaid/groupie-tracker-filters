@@ -1,10 +1,12 @@
 package handler
 
 import (
-	"groupie/helpers"
-	"groupie/tools"
+	"fmt"
 	"net/http"
 	"strconv"
+
+	"groupie/helpers"
+	"groupie/tools"
 )
 
 func FilterHandler(w http.ResponseWriter, r *http.Request) {
@@ -19,12 +21,18 @@ func FilterHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	minCreationDate := r.FormValue("minCreationDate")
-	maxCreationDate := r.FormValue("maxCreationDate")
-	firstAlbum1 := r.FormValue("firstAlbum1")
-	firstAlbum2 := r.FormValue("firstAlbum2")
-	numberOfMembers := r.Form["numberOfMembers"]
-	locationsOfConcerts := r.FormValue("locationsOfConcerts")
+	minCreationDate := r.FormValue("Crmin")
+	maxCreationDate := r.FormValue("Crmax")
+	firstAlbumMin := r.FormValue("album-min")
+	firstAlbumMax := r.FormValue("album-max")
+	numberOfMembers := r.Form["members"]
+	locationsOfConcerts := r.FormValue("location")
+	fmt.Printf("minCreationDate: %v\n", minCreationDate)
+	fmt.Printf("maxCreationDate: %v\n", maxCreationDate)
+	fmt.Printf("firstAlbumMax: %v\n", firstAlbumMax)
+	fmt.Printf("firstAlbumMin: %v\n", firstAlbumMin)
+	fmt.Printf("numberOfMembers: %v\n", numberOfMembers)
+	fmt.Printf("locationsOfConcerts: %v\n", locationsOfConcerts)
 
 	// fetch data from api
 	var artistsData []tools.Artists
@@ -37,14 +45,15 @@ func FilterHandler(w http.ResponseWriter, r *http.Request) {
 	var artists []tools.Artists
 	data := tools.Data{}
 
-	artistsFiltred(&artistsData, &artists, minCreationDate, maxCreationDate, firstAlbum1, firstAlbum2, locationsOfConcerts, numberOfMembers)
+	artistsFiltred(&artistsData, &artists, minCreationDate, maxCreationDate, firstAlbumMin, firstAlbumMax, locationsOfConcerts, numberOfMembers)
 
 	Handle_data(&artistsData, &data)
 
 	data.Artists = &artistsData
 
-	helpers.RenderTemplates(w, "templates/index.html", data, http.StatusOK)
+	helpers.RenderTemplates(w, "index.html", data, http.StatusOK)
 }
+
 func artistsFiltred(all *[]tools.Artists, filtered *[]tools.Artists, minCrStr, maxCrStr, album1, album2, loc string, members []string) {
 	minCr, _ := strconv.Atoi(minCrStr)
 	maxCr, _ := strconv.Atoi(maxCrStr)
