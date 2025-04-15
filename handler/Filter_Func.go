@@ -43,25 +43,29 @@ func FilterHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	artistsFiltred(&artistsData, &filtered, minCreationDate, maxCreationDate, firstAlbumMin, firstAlbumMax, locationsOfConcerts, numberOfMembers)
 	Handle_data(&artistsData, &data)
+	indexData := tools.Index{
+		Index: []tools.Locations{},
+	}
+
+	artistsFiltred(&artistsData, &filtered, minCreationDate, maxCreationDate, firstAlbumMin, firstAlbumMax, locationsOfConcerts, numberOfMembers, indexData)
 	data.Artists = &filtered
 	fmt.Println("Number of filtered artists:", len(filtered))
 	helpers.RenderTemplates(w, "index.html", data, http.StatusOK)
 }
 
-func artistsFiltred(all *[]tools.Artists, filtered *[]tools.Artists, minCrStr, maxCrStr, album1, album2, loc string, members []string) {
-	var location tools.Index
+func artistsFiltred(all *[]tools.Artists, filtered *[]tools.Artists, minCrStr, maxCrStr, album1, album2, loc string, members []string, loci tools.Index) {
 	hasDate := false
 	hasFirstAlbum := false
 	hasMembers := false
 	hasLocations := false
 	for _, artist := range *all {
+
 		hasDate = helpers.GetCreattionDate(&artist, minCrStr, maxCrStr)
 		hasFirstAlbum = helpers.GetFirstAlbum(&artist, album1, album2)
 		hasMembers = helpers.NumberOfMembers(&artist, members)
-		hasLocations = helpers.LocationsOfConcert(&location, &artist, loc)
-		if hasDate && hasFirstAlbum && hasMembers && hasLocations {
+		hasLocations = helpers.LocationsOfConcert(&loci, &artist, loc)
+		if hasMembers && hasFirstAlbum && hasDate && hasLocations {
 			*filtered = append(*filtered, artist)
 		}
 	}
