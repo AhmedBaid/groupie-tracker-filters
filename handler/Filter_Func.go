@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
 	"groupie/helpers"
@@ -26,12 +25,12 @@ func FilterHandler(w http.ResponseWriter, r *http.Request) {
 	firstAlbumMax := r.FormValue("album-max")
 	numberOfMembers := r.Form["members"]
 	locationsOfConcerts := r.FormValue("location")
-	fmt.Printf("minCreationDate: %v\n", minCreationDate)
-	fmt.Printf("maxCreationDate: %v\n", maxCreationDate)
-	fmt.Printf("firstAlbumMax: %v\n", firstAlbumMax)
-	fmt.Printf("firstAlbumMin: %v\n", firstAlbumMin)
-	fmt.Printf("numberOfMembers: %v\n", numberOfMembers)
-	fmt.Printf("locationsOfConcerts: %v\n", locationsOfConcerts)
+	// fmt.Printf("minCreationDate: %v\n", minCreationDate)
+	// fmt.Printf("maxCreationDate: %v\n", maxCreationDate)
+	// fmt.Printf("firstAlbumMax: %v\n", firstAlbumMax)
+	// fmt.Printf("firstAlbumMin: %v\n", firstAlbumMin)
+	// fmt.Printf("numberOfMembers: %v\n", numberOfMembers)
+	// fmt.Printf("locationsOfConcerts: %v\n", locationsOfConcerts)
 
 	// fetch data from api
 	data := tools.Data{}
@@ -44,17 +43,14 @@ func FilterHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Handle_data(&artistsData, &data)
-	indexData := tools.Index{
-		Index: []tools.Locations{},
-	}
 
-	artistsFiltred(&artistsData, &filtered, minCreationDate, maxCreationDate, firstAlbumMin, firstAlbumMax, locationsOfConcerts, numberOfMembers, indexData)
+	artistsFiltred(&artistsData, &filtered, minCreationDate, maxCreationDate, firstAlbumMin, firstAlbumMax, locationsOfConcerts, numberOfMembers, helpers.Locations)
 	data.Artists = &filtered
-	fmt.Println("Number of filtered artists:", len(filtered))
+	// fmt.Println("Number of filtered artists:", len(filtered))
 	helpers.RenderTemplates(w, "index.html", data, http.StatusOK)
 }
 
-func artistsFiltred(all *[]tools.Artists, filtered *[]tools.Artists, minCrStr, maxCrStr, album1, album2, loc string, members []string, loci tools.Index) {
+func artistsFiltred(all *[]tools.Artists, filtered *[]tools.Artists, minCrStr, maxCrStr, album1, album2, loc string, members []string, locations tools.Index) {
 	hasDate := false
 	hasFirstAlbum := false
 	hasMembers := false
@@ -64,7 +60,7 @@ func artistsFiltred(all *[]tools.Artists, filtered *[]tools.Artists, minCrStr, m
 		hasDate = helpers.GetCreattionDate(&artist, minCrStr, maxCrStr)
 		hasFirstAlbum = helpers.GetFirstAlbum(&artist, album1, album2)
 		hasMembers = helpers.NumberOfMembers(&artist, members)
-		hasLocations = helpers.LocationsOfConcert(&loci, &artist, loc)
+		hasLocations = helpers.LocationsOfConcert(&locations, &artist, loc)
 		if hasMembers && hasFirstAlbum && hasDate && hasLocations {
 			*filtered = append(*filtered, artist)
 		}
