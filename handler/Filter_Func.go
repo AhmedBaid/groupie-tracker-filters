@@ -10,14 +10,14 @@ import (
 )
 
 func FilterHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	if r.Method != http.MethodGet {
+		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorMethodnotAll, http.StatusMethodNotAllowed)
 		return
 	}
 
 	err := r.ParseForm()
 	if err != nil {
-		http.Error(w, "Failed to parse form", http.StatusBadRequest)
+		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorBadReq, http.StatusBadRequest)
 		return
 	}
 
@@ -36,7 +36,7 @@ func FilterHandler(w http.ResponseWriter, r *http.Request) {
 
 	// fetch data from api
 	var artistsData []tools.Artists
-	err = helpers.Fetch_By_Id("https://groupietrackers.herokuapp.com/api/artists", &artistsData)
+	err = helpers.Fetch("https://groupietrackers.herokuapp.com/api/artists", &artistsData)
 	if err != nil {
 		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorInternalServerErr, http.StatusInternalServerError)
 		return

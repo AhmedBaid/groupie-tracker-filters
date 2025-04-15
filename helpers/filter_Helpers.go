@@ -1,9 +1,9 @@
 package helpers
 
 import (
-	"groupie/tools"
 	"strconv"
-	"strings"
+
+	"groupie/tools"
 )
 
 func ExtractYear(album string) int {
@@ -28,15 +28,5 @@ func MemberMatch(n int, members []string) bool {
 }
 
 func HasLocation(artist tools.Artists, loc string) bool {
-	var locationData *tools.LocationDataFilter
-	err := Fetch_By_Id(artist.Locations, &locationData)
-	if err != nil {
-		return false
-	}
-	for _, l := range locationData.Locations {
-		if strings.Contains(strings.ToLower(l), strings.ToLower(loc)) {
-			return true
-		}
-	}
-	return false
+	return true
 }

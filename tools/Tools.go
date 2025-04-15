@@ -29,10 +29,15 @@ type (
 		Relations    string   `json:"relations"`
 	}
 	Locations struct {
-		Id        int      `json:"id"`
+		ID        int      `json:"id"`
 		Locations []string `json:"locations"`
 		Dates     string   `json:"dates"`
 	}
+
+	Index struct {
+		Index []Locations `json:"index"`
+	}
+
 	ConcertDates struct {
 		Id    int      `json:"id"`
 		Dates []string `json:"dates"`
@@ -40,9 +45,6 @@ type (
 	Relations struct {
 		Id             int                 `json:"id"`
 		DatesLocations map[string][]string `json:"datesLocations"`
-	}
-	LocationDataFilter struct {
-		Locations []string `json:"locations"`
 	}
 )
 

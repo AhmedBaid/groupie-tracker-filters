@@ -25,7 +25,7 @@ func Groupie_Func(w http.ResponseWriter, r *http.Request) {
 	// initialise the variables
 	var allArtists *[]tools.Artists
 	url := "https://groupietrackers.herokuapp.com/api/artists"
-	err := helpers.Fetch_By_Id(url, &allArtists)
+	err := helpers.Fetch(url, &allArtists)
 	if err != nil {
 		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorInternalServerErr, http.StatusInternalServerError)
 		return

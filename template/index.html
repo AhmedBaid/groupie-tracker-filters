@@ -113,7 +113,7 @@
         </div>
         <div class="loc">
           <label for="locations"> Locations:</label><br>
-          <input type="text" name="location" list="locations">
+          <input type="text" name="location" list="locations" class="datals">
           <datalist id="locations">
             {{range .Locations}}
             <option>{{.}}</option>
@@ -127,8 +127,8 @@
     </div>
   </div>
   </div>
-  {{if .Artists}}
   <div class="cards-groups" id="up">
+    {{if .Artists}}
     {{range .Artists}}
     <a class="lien" href="/details?id={{.Id}}">
       <div class="card">

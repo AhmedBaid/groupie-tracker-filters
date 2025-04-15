@@ -30,7 +30,7 @@ func Detail_Card_Func(w http.ResponseWriter, r *http.Request) {
 	var locations *tools.Locations
 	var dates *tools.ConcertDates
 	var relations *tools.Relations
-	errFetch := helpers.Fetch_By_Id(fmt.Sprintf("https://groupietrackers.herokuapp.com/api/artists/%d", Id), &artistFound)
+	errFetch := helpers.Fetch(fmt.Sprintf("https://groupietrackers.herokuapp.com/api/artists/%d", Id), &artistFound)
 
 	if errFetch != nil {
 		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorInternalServerErr, http.StatusInternalServerError)
@@ -47,9 +47,9 @@ func Detail_Card_Func(w http.ResponseWriter, r *http.Request) {
 	Relations_url := artistFound.Relations
 
 	// fetch the nested data
-	errLoc := helpers.Fetch_By_Id(Locations_url, &locations)
-	errLates := helpers.Fetch_By_Id(ConcertDates_url, &dates)
-	errRelation := helpers.Fetch_By_Id(Relations_url, &relations)
+	errLoc := helpers.Fetch(Locations_url, &locations)
+	errLates := helpers.Fetch(ConcertDates_url, &dates)
+	errRelation := helpers.Fetch(Relations_url, &relations)
 
 	if errLoc != nil || errLates != nil || errRelation != nil {
 		

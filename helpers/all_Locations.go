@@ -1,32 +1,32 @@
 package helpers
 
 import (
-	"groupie/tools"
-	"strings"
+	"fmt"
 	"sync"
+
+	"groupie/tools"
 )
 
 func AllLocations(allArtists *[]tools.Artists, wg *sync.WaitGroup, data *tools.Data) {
 	defer wg.Done()
-	// Collect unique locations mn kol artist
+	var location tools.Index
+	err := Fetch("https://groupietrackers.herokuapp.com/api/locations", &location)
+	if err != nil {
+		fmt.Println("Error fetching API:", err)
+		return
+	}
+
 	locationsSet := make(map[string]bool)
+
+	for _, entry := range location.Index {
+		for _, loc := range entry.Locations {
+			locationsSet[loc] = true
+		}
+	}
 	var locationsList []string
-
-	for _, artist := range *allArtists {
-		var locData *tools.LocationDataFilter
-		err := Fetch_By_Id(artist.Locations, &locData)
-		if err != nil {
-			continue
-		}
-
-		for _, loc := range locData.Locations {
-			cleanedLoc := strings.TrimSpace(loc)
-			locationsSet[cleanedLoc] = true
-		}
+	for location := range locationsSet {
+		locationsList = append(locationsList, location)
 	}
-
-	for loc := range locationsSet {
-		locationsList = append(locationsList, loc)
-	}
+	fmt.Println(len(locationsList))
 	data.Locations = locationsList
 }
