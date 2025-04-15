@@ -3,7 +3,6 @@ package handler
 import (
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"groupie/helpers"
 	"groupie/tools"
@@ -35,59 +34,35 @@ func FilterHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("locationsOfConcerts: %v\n", locationsOfConcerts)
 
 	// fetch data from api
+	data := tools.Data{}
 	var artistsData []tools.Artists
+	var filtered []tools.Artists
 	err = helpers.Fetch("https://groupietrackers.herokuapp.com/api/artists", &artistsData)
 	if err != nil {
 		helpers.RenderTemplates(w, "statusPage.html", tools.ErrorInternalServerErr, http.StatusInternalServerError)
 		return
 	}
 
-	var artists []tools.Artists
-	data := tools.Data{}
-
-	artistsFiltred(&artistsData, &artists, minCreationDate, maxCreationDate, firstAlbumMin, firstAlbumMax, locationsOfConcerts, numberOfMembers)
-
+	artistsFiltred(&artistsData, &filtered, minCreationDate, maxCreationDate, firstAlbumMin, firstAlbumMax, locationsOfConcerts, numberOfMembers)
 	Handle_data(&artistsData, &data)
-
-	data.Artists = &artistsData
-
+	data.Artists = &filtered
+	fmt.Println("Number of filtered artists:", len(filtered))
 	helpers.RenderTemplates(w, "index.html", data, http.StatusOK)
 }
 
 func artistsFiltred(all *[]tools.Artists, filtered *[]tools.Artists, minCrStr, maxCrStr, album1, album2, loc string, members []string) {
-	minCr, _ := strconv.Atoi(minCrStr)
-	maxCr, _ := strconv.Atoi(maxCrStr)
-	minAlb, _ := strconv.Atoi(album1)
-	maxAlb, _ := strconv.Atoi(album2)
-
+	var location tools.Index
+	hasDate := false
+	hasFirstAlbum := false
+	hasMembers := false
+	hasLocations := false
 	for _, artist := range *all {
-		// filter Creation Date
-		if minCr != 0 && artist.CreationDate < minCr {
-			continue
+		hasDate = helpers.GetCreattionDate(&artist, minCrStr, maxCrStr)
+		hasFirstAlbum = helpers.GetFirstAlbum(&artist, album1, album2)
+		hasMembers = helpers.NumberOfMembers(&artist, members)
+		hasLocations = helpers.LocationsOfConcert(&location, &artist, loc)
+		if hasDate && hasFirstAlbum && hasMembers && hasLocations {
+			*filtered = append(*filtered, artist)
 		}
-		if maxCr != 0 && artist.CreationDate > maxCr {
-			continue
-		}
-
-		// filter First Album
-		albumYear := helpers.ExtractYear(artist.FirstAlbum)
-		if minAlb != 0 && albumYear < minAlb {
-			continue
-		}
-		if maxAlb != 0 && albumYear > maxAlb {
-			continue
-		}
-
-		// filter Members count
-		if len(members) > 0 && !helpers.MemberMatch(len(artist.Members), members) {
-			continue
-		}
-
-		// filter Location
-		if loc != "" && !helpers.HasLocation(artist, loc) {
-			continue
-		}
-
-		*filtered = append(*filtered, artist)
 	}
 }

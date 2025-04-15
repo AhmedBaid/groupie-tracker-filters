@@ -127,20 +127,20 @@
     </div>
   </div>
   </div>
-  <div class="cards-groups" id="up">
-    {{if .Artists}}
-    {{range .Artists}}
-    <a class="lien" href="/details?id={{.Id}}">
-      <div class="card">
-        <img src="{{.Image}}" alt="lien" loading="lazy" />
-        <h2>{{.Name}}</h2>
-      </div>
-    </a>
-    {{end}}
-    {{else}}
+  {{if gt (len .Artists) 0}}
+    <div class="cards-groups" id="up">
+      {{range .Artists}}
+        <a class="lien" href="/details?id={{.Id}}">
+          <div class="card">
+            <img src="{{.Image}}" alt="lien" loading="lazy" />
+            <h2>{{.Name}}</h2>
+          </div>
+        </a>
+      {{end}}
+    </div>
+  {{else}}
     <h1 class="err-msg">Sorry, we couldn't find any artist</h1>
-    {{end}}
-  </div>
+  {{end}}
   <a href="#up" class="up">
     <img src="/static/images/up.png" alt="up">
   </a>

@@ -9,7 +9,10 @@
 body::-webkit-scrollbar {
   display: none;
 }
-
+.err-msg{
+  font-size: 50px;
+  color: red;
+}
 .filter {
   width: 72%;
   display: flex;

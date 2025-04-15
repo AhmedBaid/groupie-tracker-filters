@@ -27,6 +27,5 @@ func AllLocations(allArtists *[]tools.Artists, wg *sync.WaitGroup, data *tools.D
 	for location := range locationsSet {
 		locationsList = append(locationsList, location)
 	}
-	fmt.Println(len(locationsList))
 	data.Locations = locationsList
 }
