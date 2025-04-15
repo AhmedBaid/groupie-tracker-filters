@@ -9,9 +9,11 @@
 body::-webkit-scrollbar {
   display: none;
 }
-.err-msg{
-  font-size: 50px;
-  color: red;
+.messageErr{
+  margin-top: 200px;
+  font-size: 30px;
+  color: wheat;
+  text-align: center;
 }
 .filter {
   width: 72%;
@@ -26,10 +28,9 @@ body::-webkit-scrollbar {
 }
 input[type="number"] {
   height: 30px;
+  color: wheat;
 }
-datalist {
-  height: 30px;
-}
+
 .show {
   position: relative;
   display: none;
@@ -110,6 +111,7 @@ input[type="number"] {
   width: 300px;
   height: 28px;
   background-color: #3a3a3a;
+  color: wheat;
 }
 .show .member {
   width: 40%;
