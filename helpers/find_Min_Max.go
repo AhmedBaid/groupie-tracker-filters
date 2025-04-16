@@ -1,8 +1,10 @@
 package helpers
 
 import (
-	"groupie/tools"
+	"math"
 	"sync"
+
+	"groupie/tools"
 )
 
 func MinMax(allArtists *[]tools.Artists, wg *sync.WaitGroup, data *tools.Data) {
@@ -21,6 +23,8 @@ func MinMax(allArtists *[]tools.Artists, wg *sync.WaitGroup, data *tools.Data) {
 			max = date
 		}
 	}
+	dd := math.Round((float64(min) + float64(max)) / 2)
+	data.Span = int(dd)
 	data.MinCrDate = min
 	data.MaxCrDate = max
 }

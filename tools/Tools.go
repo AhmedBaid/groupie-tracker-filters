@@ -12,6 +12,7 @@ type (
 		Locations []string
 		MinCrDate int
 		MaxCrDate int
+		Span int
 	}
 	ErrorPage struct {
 		Code         int

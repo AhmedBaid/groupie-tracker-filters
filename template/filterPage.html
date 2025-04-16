@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Groupit-tracker</title>
-  <link rel="stylesheet" href="/static/index.css" />
+  <link rel="stylesheet" href="/static/filter.css" />
   <link rel="shortcut icon" href="/static/images/artist.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -60,12 +60,12 @@
             <label>Creation Date:</label>
             <div class="smon">
               <label for="date">from : <span id="creation-min-value">{{.Span}}</span></label>
-              <input type="range" id="creation-min" name="Crmin" min="{{.MinCrDate}}"
+              <input type="range" id="creation-min" name="Crmin"  min="{{.MinCrDate}}"
                 max="{{.MaxCrDate}}">
             </div>
             <div class="smon">
               <label for="date">to : <span id="creation-max-value">{{.Span}}</span></label>
-              <input type="range" id="creation-max" name="Crmax" min="{{.MinCrDate}}"
+              <input type="range" id="creation-max" name="Crmax"  min="{{.MinCrDate}}"
                 max="{{.MaxCrDate}}">
             </div>
           </div>
