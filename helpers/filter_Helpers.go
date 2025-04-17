@@ -50,9 +50,9 @@ func CheckLocations(locations *tools.Index, artists *tools.Artists, location str
 	if location == "" {
 		return true
 	}
-	// if location == "seattle-usa" {
-	// 	location = "washington-usa"
-	// }
+	if location == "seattle-usa" {
+		location = "washington-usa"
+	}
 	for _, locations := range locations.Index {
 		for _, loc := range locations.Locations {
 			if loc == location {
