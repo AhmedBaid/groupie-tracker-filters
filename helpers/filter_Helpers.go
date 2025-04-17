@@ -16,13 +16,13 @@ func CheckCreationDate(a *tools.Artists, min string, max string) bool {
 	return false
 }
 
-func CheckFirstAlbum(a *tools.Artists, y1, y2 string) bool {
-	if len(y1) == 0 && len(y2) == 0 {
+func CheckFirstAlbum(a *tools.Artists, year1, year2 string) bool {
+	if len(year1) == 0 && len(year2) == 0 {
 		return true
 	}
 
-	minyear, _ := strconv.Atoi(y1)
-	maxyear, _ := strconv.Atoi(y2)
+	minyear, _ := strconv.Atoi(year1)
+	maxyear, _ := strconv.Atoi(year2)
 	firstAlbYear := strings.Split(a.FirstAlbum, "-")[2]
 	for i := minyear; i <= maxyear; i++ {
 		if firstAlbYear == strconv.Itoa(i) {
@@ -32,12 +32,12 @@ func CheckFirstAlbum(a *tools.Artists, y1, y2 string) bool {
 	return false
 }
 
-func CheckNumberOfMembers(a *tools.Artists, key []string) bool {
-	if len(key) == 0 {
+func CheckNumberOfMembers(a *tools.Artists, members []string) bool {
+	if len(members) == 0 {
 		return true
 	}
 
-	for _, e := range key {
+	for _, e := range members {
 		nb, _ := strconv.Atoi(e)
 		if len(a.Members) == nb {
 			return true
@@ -46,21 +46,35 @@ func CheckNumberOfMembers(a *tools.Artists, key []string) bool {
 	return false
 }
 
-func CheckLocations(l *tools.Index, a *tools.Artists, key string) bool {
-	if key == "" {
+func CheckLocations(locations *tools.Index, artists *tools.Artists, location string) bool {
+	if location == "" {
 		return true
 	}
-	// if key == "seattle-usa" {
-	// 	key = "washington-usa"
+	// if location == "seattle-usa" {
+	// 	location = "washington-usa"
 	// }
-	for _, locations := range l.Index {
-		for _, adress := range locations.Locations {
-			if adress == key {
-				if locations.ID == a.Id {
+	for _, locations := range locations.Index {
+		for _, loc := range locations.Locations {
+			if loc == location {
+				if locations.ID == artists.Id {
 					return true
 				}
 			}
 		}
 	}
 	return false
+}
+
+func ArtistsFiltred(allArtists *[]tools.Artists, minCrStr, maxCrStr, firstAlbumMin, firstAlbumMax, location string, members []string, locations tools.Index) *[]tools.Artists {
+	filteredArtists := []tools.Artists{}
+	for _, artist := range *allArtists {
+		hasDate := CheckCreationDate(&artist, minCrStr, maxCrStr)
+		hasFirstAlbum := CheckFirstAlbum(&artist, firstAlbumMin, firstAlbumMax)
+		hasMembers := CheckNumberOfMembers(&artist, members)
+		hasLocations := CheckLocations(&locations, &artist, location)
+		if hasMembers && hasFirstAlbum && hasDate && hasLocations {
+			filteredArtists = append(filteredArtists, artist)
+		}
+	}
+	return &filteredArtists
 }
