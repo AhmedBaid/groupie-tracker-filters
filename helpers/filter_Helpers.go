@@ -16,13 +16,13 @@ func CheckCreationDate(allArtists *tools.Artists, minCr string, maxCr string) bo
 	return false
 }
 
-func CheckFirstAlbum(allArtists *tools.Artists, year1, year2 string) bool {
-	if len(year1) == 0 && len(year2) == 0 {
+func CheckFirstAlbum(allArtists *tools.Artists, Album1, Album2 string) bool {
+	if len(Album1) == 0 && len(Album2) == 0 {
 		return true
 	}
 
-	minYear, _ := strconv.Atoi(year1)
-	maxYear, _ := strconv.Atoi(year2)
+	minYear, _ := strconv.Atoi(Album1)
+	maxYear, _ := strconv.Atoi(Album2)
 	firstAlbYear := strings.Split(allArtists.FirstAlbum, "-")[2]
 	for i := minYear; i <= maxYear; i++ {
 		if firstAlbYear == strconv.Itoa(i) {
