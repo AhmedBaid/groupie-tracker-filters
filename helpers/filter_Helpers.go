@@ -72,7 +72,7 @@ func ArtistsFiltred(allArtists *[]tools.Artists, minCrStr, maxCrStr, firstAlbumM
 		checkDate = CheckCreationDate(&artist, minCrStr, maxCrStr)
 		checkFirstAlbum = CheckFirstAlbum(&artist, firstAlbumMin, firstAlbumMax)
 		checkMembers = CheckNumberOfMembers(&artist, members)
-		checkLocations = CheckLocations(&locations, &artist, location)
+		checkLocations = CheckLocations(&locations, &artist, location)	
 		if checkMembers && checkFirstAlbum && checkDate && checkLocations {
 			filteredArtists = append(filteredArtists, artist)
 		}

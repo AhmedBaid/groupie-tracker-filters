@@ -9,7 +9,7 @@
 body::-webkit-scrollbar {
   display: none;
 }
-.messageErr{
+.messageErr {
   margin-top: 200px;
   font-size: 30px;
   color: wheat;
@@ -41,7 +41,6 @@ input[type="number"] {
   background-color: #141414;
   border-radius: 24px;
   width: 72%;
-  height: 280px;
 }
 
 .filter-button,
@@ -75,8 +74,10 @@ input[type="number"] {
   display: none;
 }
 
+
 .content {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
@@ -113,11 +114,9 @@ input[type="number"] {
   background-color: #3a3a3a;
   color: wheat;
 }
-.show .member {
-  width: 40%;
-}
+
 .filter-link input {
-  margin: 50px auto 0 auto;
+  margin: 30px auto 0 auto;
   display: flex;
   border: #00ff26 solid 1px;
   outline: none;
@@ -137,7 +136,9 @@ input[type="number"] {
 }
 
 .checkboxes {
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 25px;
   margin-bottom: 80px;
 }
@@ -454,6 +455,10 @@ nav {
 }
 
 @media (max-width: 1350px) {
+  .show {
+    width: 78%;
+  }
+
   .lien h2 {
     font-size: 18px;
   }
@@ -476,10 +481,42 @@ nav {
     height: 45%;
   }
 }
+@media (max-width: 1036px) {
+  .filter-button,
+  .xmark-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .loc {
+    margin-top: 0px;
+  }
+  .show .date {
+    width: 80%;
+  }
+  .show .member {
+    width: 80%;
+  }
+  .show {
+    width: 65%;
+  }
+}
+@media (max-width: 980px) {
+  .member {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
 
 @media (max-width: 850px) {
-  .cards-groups {
-    width: 90%;
+  .show {
+    width: 70%;
   }
 
   .title a {
@@ -500,6 +537,9 @@ nav {
 }
 
 @media (max-width: 660px) {
+  .datals {
+    width: 200px;
+  }
   .up {
     height: 35px;
     width: 35px;
@@ -546,6 +586,9 @@ nav {
 }
 
 @media (max-width: 320px) {
+  .show {
+    width: 85%;
+  }
   nav {
     padding: 15px 3px;
   }
