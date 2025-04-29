@@ -67,12 +67,13 @@ func CheckLocations(locations *tools.Index, artists *tools.Artists, location str
 
 func ArtistsFiltred(allArtists *[]tools.Artists, minCrStr, maxCrStr, firstAlbumMin, firstAlbumMax, location string, members []string, locations tools.Index) *[]tools.Artists {
 	filteredArtists := []tools.Artists{}
+	var checkDate, checkFirstAlbum, checkMembers, checkLocations bool
 	for _, artist := range *allArtists {
-		hasDate := CheckCreationDate(&artist, minCrStr, maxCrStr)
-		hasFirstAlbum := CheckFirstAlbum(&artist, firstAlbumMin, firstAlbumMax)
-		hasMembers := CheckNumberOfMembers(&artist, members)
-		hasLocations := CheckLocations(&locations, &artist, location)
-		if hasMembers && hasFirstAlbum && hasDate && hasLocations {
+		checkDate = CheckCreationDate(&artist, minCrStr, maxCrStr)
+		checkFirstAlbum = CheckFirstAlbum(&artist, firstAlbumMin, firstAlbumMax)
+		checkMembers = CheckNumberOfMembers(&artist, members)
+		checkLocations = CheckLocations(&locations, &artist, location)
+		if checkMembers && checkFirstAlbum && checkDate && checkLocations {
 			filteredArtists = append(filteredArtists, artist)
 		}
 	}
